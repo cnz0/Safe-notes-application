@@ -1,0 +1,15 @@
+<html>
+<body>
+<h1> Note decryption </h1>
+<br>
+<form action={{ url_for('decryption') }} method="post">
+  <label for="password">Password to decrypt: </label>
+  <input type="text" id="password" name="password"><br>
+  <input type="submit" value="Decrypt note" />
+</form>
+<form action={{ url_for('hello') }}>
+  <input type="submit" value="Go back" />
+</form>
+<br><br>
+</body>
+</html>

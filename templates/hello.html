@@ -1,0 +1,43 @@
+<html>
+<body>
+<center>
+<h1>Hello again {{ username }}!</h1>
+
+</center>
+
+<form method="post">
+  <label for="markdown">Input some markdown:</label><br>
+  <label for="markdown">Italic text: *text*</label><br>
+  <label for="markdown">Bold text: **text**</label><br>
+  <label for="markdown">Italic and Bold text: ***text***</label><br>
+  <label for="markdown">Header text: type of header dictated by amount of "#": #text up to ######text</label><br>
+  <label for="markdown">Blockquote: >text</label><br>
+  <label for="markdown">List: 1.FirstElement or -FirstElement or +FirstElement *FirstElement || next element should be written in next line</label><br>
+  <label for="markdown">Links: [Name of link](Full link name: with http or https)</label><br>
+  <label for="markdown">Email address: &ltemail&gt</label><br>
+
+  <textarea id="markdown" name="markdown" rows="30" cols="100"></textarea><br><br>
+  <br>
+  <input formaction={{ url_for('render') }} type="submit" value="Add note">
+  <input formaction={{ url_for('renderpublic') }} type="submit" value="Share note publicly">
+  </form>
+</form>
+
+{% if notes|length > 0 %}
+<h1> Your notes: </h1>
+<ul>
+{% for note in notes %}
+  <li><a href="{{ url_for('render') }}/{{note.0}}"> Note {{ loop.index }}</a></li>
+{% endfor %}
+</ul>
+
+{% endif %}
+
+<form method="post">
+<input formaction={{ url_for('change') }} type="submit" value="Change password">
+</form>
+<form>
+<input formaction={{ url_for('logout') }} type="submit" value="Log out">
+</form>
+</body>
+</html>

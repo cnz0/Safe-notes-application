@@ -1,0 +1,16 @@
+<html>
+<body>
+<center>
+<h1> Safe note sharing app</h1>
+<p> Welcome new user! </p>
+<p style="color:red">Remember that every password should contain at least 8 unique characters: At least one uppercase letter, one lowercase letter, one number, and one special character.</p>
+<form action={{ url_for('register') }} method="post">
+  <label for="username">Username: </label><br>
+  <input type="text" id="username" name="username"><br><br>
+  <label for="password">Password: </label><br>
+  <input type="password" id="password" name="password"><br><br>
+  <input type="submit" value="Submit">
+</center>
+</form>
+</body>
+</html>

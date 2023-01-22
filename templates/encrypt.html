@@ -1,0 +1,17 @@
+<html>
+<body>
+<h1> Your rendered Markdown: </h1>
+{{ rendered|safe }}
+<br><br>
+<form action={{ url_for('encryption') }} method="post">
+  <label for="password">Password to encrypt: </label>
+  <input type="hidden" name="render" value="{{rendered}}">
+  <input type="text" id="password" name="password"><br>
+  <input type="submit" value="Encrypt note" />
+</form>
+<form action={{ url_for('hello') }}>
+  <input type="submit" value="Go back" />
+</form>
+<br><br>
+</body>
+</html>
