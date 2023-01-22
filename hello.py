@@ -76,7 +76,7 @@ def login():
             LOGIN_ATTEMPTS = 0
         if user is None:
             LOGIN_ATTEMPTS = LOGIN_ATTEMPTS + 1
-            return "Nieprawidłowy login lub hasło", 401
+            return "Wrong login or password", 401
         if sha256_crypt.verify(password, user.password):
             strength = check_strength(password)
             login_user(user)
@@ -87,7 +87,7 @@ def login():
                 return redirect('/weakpasswordreminder')
         else:
             LOGIN_ATTEMPTS = LOGIN_ATTEMPTS + 1
-            return "Nieprawidłowy login lub hasło", 401
+            return "Wrong login or password", 401
 
 @app.route("/logout")
 def logout():
@@ -227,10 +227,19 @@ def register():
         password = request.form.get('password')
         password = bleach.clean(password)
         
+        try:
+            sql.execute(f"SELECT username FROM user WHERE username == '{username}'")
+            new_username = str(sql.fetchone()[0])
+            print(new_username)
+            if new_username == username:
+                return "Username already taken!", 403
+        except:
+            None
+        
         strength = check_strength(password)
 
         sql.execute(f"INSERT INTO user (username, password) VALUES ('{username}', '{sha256_crypt.hash(password)}');")
-
+        sql.execute(f"INSERT INTO user (username, password) VALUES ('{username}', '{sha256_crypt.hash(password)}');")
         db.commit()
         if strength == True:
             return redirect('/')
